@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这里的递归我可以这样理解 如果数组只要三个元素[2,1,3]，流程，数组长度大于1所以中为index=1，左为index=0，右为下标index=2的
+        // 然后 return midSort(left).concat(midValue, midSort(right)) ；其中midSort(left)，数组left长度等于1，返回回去，midSort(right)
+        // 同理，然后最终结果就是[1,2,3]，当数组元素很多时我们可以理解为无数个[2,1,3]组成的数组
+        function midSort(arr) {
+            // 当需要拆分的数组只要一个元素 无法拆分就返回，这是终止递归做条件
+            if (arr.length <= 1) return arr;
+            let midIndex = parseInt(arr.length / 2),
+                // 这里获取到的就是向取整的arr[midIndex]，因为index是0起始啊
+                midValue = arr.splice(midIndex, 1);
+            let left = [], right = [];
+            // 大于中间值放入right数组，小于中间值放入left数组
+            arr.forEach(item => {
+                item < midValue ? left.push(item) : right.push(item)
+            })
+            return midSort(left).concat(midValue, midSort(right));//利用递归对left和right数组继续拆分
+        }
+        console.log(midSort([1, 2, 10, 3, 7, 2]));
+// mid=3    left=[1,2,3,2]  right=[10,7]  return midSort([1,2,3,2]).concat(3, midSort([10,7]))
+// 后面就好理解了  最前方midSort([1,2,3,2])    mid=3   left=[1,2,2]  right=[]
+    </script>
+</body>
+
+</html>

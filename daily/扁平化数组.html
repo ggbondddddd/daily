@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+
+
+        // 方法1，就是用flat方法，Infinity就是无限层扁平化
+        // const arr5 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
+        // let arr6= arr5.flat(Infinity);
+        // console.log(arr5);
+        // console.log(arr6);
+
+        // 方法2 利用while 配合concat   首先当some方法判断出数组某一个属性为数组返回true，while内部上下文触发，扩展运算符展开一层arr
+        let arr4 = [1, [2, [3, 4]]];
+        function flatten_4(arr) {
+            while (arr.some(item => Array.isArray(item))) {
+                console.log(...arr);  //第一次arr展开是1, [2, [3, 4]]，所以concat的是1和[2, [3, 4]]这两个元素
+                arr = [].concat(...arr)
+                console.log(arr, 'arr');
+            }
+            return arr
+        }
+        console.log(flatten_4(arr4));
+
+
+    </script>
+</body>
+
+</html>

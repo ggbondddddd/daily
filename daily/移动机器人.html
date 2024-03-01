@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div class="movediv"></div>
+    </div>
+</body>
+<script>
+    const ele = document.querySelector('.movediv')
+
+let disX
+let disY
+let dragHeight
+let dragWidth
+ele.addEventListener('mousedown', (event) => {
+// ele.style.top='500px'
+  const totalHeight = window.innerHeight
+  const totalWidth = window.innerWidth
+
+  disX = event.clientX - ele.offsetLeft;
+  disY = event.clientY - ele.offsetTop;
+  //2， 获取拖动元素的高度和容器的高度 为了下面进行限制元素拖动的范围
+ dragHeight = ele.offsetHeight;
+ dragWidth = ele.offsetWidth;
+  // 添加鼠标移动事件
+  document.onmousemove = (el) => {
+// 
+    
+//     this.isMove = true
+//     // 3，获取鼠标移动位置
+    let moveX = el.clientX - disX;
+    let moveY = el.clientY - disY;
+//     // 4，限制拖动
+//     //控制范围：在元素 被拖拽的过程中 判断 元素的定位值 是否到达边界 如果到了 就不能在走了
+//     // 4.2 第二种限制方位的判断 建议使用第二种； 第一种靠边时经常会有边距，不太丝滑
+//     // 左边界
+    if (moveX <= 10) {
+      moveX = 10;
+    }
+    // 右边界 减去的值为div的宽度
+    if (moveX >= totalWidth - 100) {
+      moveX = totalWidth - 100;
+    }
+    // 上边界
+    if (moveY <= 50) {
+      moveY = 50;
+    }
+    // 上边界减去的值为div的高度
+    if (moveY >= totalHeight - 100) {
+      moveY = totalHeight - 100;
+    }
+    // 5, 开始移动
+    ele.style.left = moveX + "px";
+    ele.style.top = moveY + "px";
+  };
+//   /* 6，鼠标抬起解除事件 */
+  document.onmouseup = () => {
+    document.onmousemove = null;
+  };
+})
+</script>
+<style>
+  div{
+width: 500px;
+height: 500px;
+background-color: pink;
+margin: 100px auto;
+  }
+  .movediv{
+    width: 30px;
+    height: 30px;
+    background-color: skyblue;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+  }
+</style>
+</html>

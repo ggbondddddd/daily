@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 方法1 最简单  利用from 和set
+ arr = [1, 1, 'true', 'true', true, true, 15, 15, false, false, undefined, undefined, null, null, NaN, NaN, 'NaN', 0, 0, 'a', 'a', {}, {}]
+
+console.log(Array.from(new Set(arr)));
+
+
+
+        arr1 = [1, 1, 'true', 'true', true, true, 15, 15, false, false, undefined, undefined, null, null, NaN, NaN, 'NaN', 0, 0, 'a', 'a', {}, {}]
+        // 方法2：这个方法删除a，就a下标--；删除i下表的属性值就i--   缺点 NaN不会被去重，{}也不去重，我觉得合理
+        // 我这种写法是错误的 因为 当第一轮i=0将后面两个1删掉以后，i=1，然后a也=1,那么arr[1]=arr[1]，也就是除了下表为1的
+        // 数组其他全部元素都被删除了，我的思路是对的 就是让a为i后面一位下标，但是我忽略了i=1后a还是以1起始，所以让a=i+1，这样i就永远在a后面一位
+        function removeSame(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                // for(let a=1;a<arr.length;a++){  这里是我错误的写法
+                for (let a = i + 1; a < arr.length; a++) {
+                    if (arr[i] === arr[a]) {
+                        arr.splice(a, 1)
+                        // 原本我没有写a--，写a--的原因，如果下标3，4，1的值都为9，当下标1和下标为3的对比完成，删除了下标为3的那个属性值，
+                        // 原本下标为4的属性下表会变成3，如果a不减去1，那么就会将原本下表为4的这个重复值忽略掉，所以就会造成错误
+                        a--
+                    }
+                }
+            }
+            return arr
+        }
+        console.log(removeSame(arr1));
+
+        // 方法3 这个方法很好理解，创建一个空数组，将需要去重的数组依次加入空数组，在这个过程判断去重    {}不会被去重
+        function unique(arr) {
+            var array = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (!array.includes(arr[i])) {//includes 检测数组是否有某个值
+                    array.push(arr[i]);
+                }
+            }
+            return array
+        }
+        var arr = [1, 1, 'true', 'true', true, true, 15, 15, false, false, undefined, undefined, null, null, NaN, NaN, 'NaN', 0, 0, 'a', 'a', {}, {}];
+        console.log(unique(arr))//[1, "true", true, 15, false, undefined, null, NaN, "NaN", 0, "a", {}, {}]   
+
+
+    </script>
+</body>
+
+</html>

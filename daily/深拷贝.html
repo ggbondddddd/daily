@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr1 = [1, 2,[1,2], 3, 4]
+        arr2=[]
+        const obj1 = { name: '张三', minObj: { age: 12, people: { num: 10 } }, hobby: '篮球' }
+        // 这里我长一个教训，我刚开始只是创建了一个obj，但是没有赋值空对象，所以一直报错说obj2的某个属性不存在
+        let obj2={}
+
+// 方法1 ，这个方法不好，以后不用了
+        function deepClone1(clone, newthing) {
+            for (let item in clone) {
+                if (clone[item] instanceof Array) {
+                    newthing[item] = []
+                   deepClone1(clone[item], newthing[item])
+                } else 
+                if (clone[item] instanceof Object) {
+                    newthing[item] = {}
+                   deepClone1(clone[item], newthing[item])
+                } else {
+                    newthing[item] = clone[item]
+                
+                }
+            }
+            // return newthing
+        }
+ deepClone1(obj1, obj2)
+        obj2.name='李四'
+        console.log(obj1);
+        console.log(obj2)
+
+        deepClone1(arr1,arr2)
+        arr2[1]=100
+        console.log(arr1);
+        console.log(arr2);
+
+
+
+        const arr3 = [1, 2,[1,2], 3, 4]
+        const obj3 = { name: '张三', minObj: { age: 12, people: { num: 10 } }, hobby: '篮球' }
+       
+        // 深拷贝方法2： 这个方法更合理比方法1，可以直接省去子属性再去判断是否为数组，因为对象包含了数组，并且使用的枚举[],赋值数组对象都成立
+        // 以后就用这种方法
+        function deepClone2(clone) {
+            let newThing=clone instanceof Array ? [] :{}
+            for (let item in clone) {
+                // if (clone[item] instanceof Array) {
+                //     newThing[item]=deepClone2(clone[item])
+                // } else 
+                if (clone[item] instanceof Object) {
+                    newThing[item]= deepClone2(clone[item])
+                } else {
+                    newThing[item] = clone[item]
+                }
+            }
+            return newThing
+        }
+      let obj4=  deepClone2(obj3)
+      obj4.a=1
+      console.log(obj3);
+      console.log(obj4);
+      let arr4=deepClone2(arr3)
+    //   arr4[0]=999
+      console.log(arr3);
+      console.log(arr4);
+          </script>
+</body>
+
+</html>

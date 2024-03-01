@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="nav1">
+       
+      
+    </div>
+    <div class="nav2">
+        222
+    </div>
+    <div class="nav3">  <span>666</span></div>
+
+</body>
+<script>
+    
+  let nav1=  document.querySelector('.nav1')
+  nav1.innerHTML='222222'
+   let a= document.createElement('a')
+   nav1.append(a)
+   a.innerHTML='aaaaa'
+   a.style.color='red'
+   let nav3=  document.querySelector('.nav3')
+   nav3.addEventListener('click',()=>{location.href='https://www.baidu.com/' })
+// nav3.removeChild(span)
+// 移除body中的div子节点
+// document.body.removeChild(div)
+console.log(screen.width )
+
+
+let data1 = [
+  { value: 10, name: '其他' },
+  { value: 71, name: '教育' },
+  { value: 61, name: '交通 ' },
+  { value: 20, name: '农林牧水 ' },
+  { value: 32, name: '文化新闻传播 ' },
+  { value: 3, name: '卫生 ' },
+];
+
+// 副标题是data1的value相加
+
+let dataNum = data1.reduce((pre, cur) => {return pre + cur.value},0)
+let num=0
+let dataNum2=data1.forEach((item)=>{
+    num+=item['value']
+})
+let dataNum3=data1.map((item)=>{return item['value']})
+console.log(num);
+console.log(dataNum);
+console.log(parseInt(Math.random() * 2));
+console.log(typeof(toString(111)));
+
+function f() {
+  let value = Math.random();
+
+  function g() {
+    debugger; // 在 Console 中：输入 alert(value); No such variable!
+  }
+
+  return g;
+}
+
+let g = f();
+g();
+</script>
+<style>
+
+</style>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <div id="date"></div>
+</head>
+
+<body>
+    <script>
+        // 平年闰年只决定二月是28天还是29天
+        function chuo(time) {
+            // let year=
+            // let month = parseInt(time)
+            let day = parseInt(time / 24 / 3600)
+
+            // 此处下面两种小时获取方法也是不同思路，上面是先获取到小于一天的秒数，然后获取到小时
+            // 下面是直接获取到这个时间的可以转化成多少个小时，然后模24，也就是一天24小时啊，可以获取到当天的小时数
+            // let hour=parseInt(time%(24*3600)/3600)
+            let hour = parseInt(time / 3600 % 24)
+            // 这里的分是可以再进一步提炼，直接模3600获得的最大值就是59分59秒的秒数，然后除以单分钟的秒数60可以获得还剩多少分，模获得的就是秒了啊
+            // let min=parseInt(time%(24*3600)%3600/60)
+            let min = parseInt(time % 3600 % 60)
+
+            let s = parseInt(time % 3600 % 60)
+
+            hour = hour < 10 ? '0' + hour : hour
+            min = min < 10 ? '0' + min : min
+            s = s < 10 ? '0' + s : s
+            return day + '天' + hour + '时' + min + '分' + s + '秒'
+
+        }
+        // console.log(chuo(360061));
+       let datenow= document.querySelector('#date')
+let chuoc=360061
+       setInterval(()=>{
+datenow.innerHTML=chuo(chuoc)
+chuoc--
+       },1000)
+     
+
+    </script>
+</body>
+
+</html>
